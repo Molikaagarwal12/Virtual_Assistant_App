@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "443312016692",
+    "project_id": "myvirtualasistant-ce7ea",
+    "storage_bucket": "myvirtualasistant-ce7ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443312016692:android:306cfbb01055303dbb2961",
+        "android_client_info": {
+          "package_name": "com.example.my_virtual_assistant"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCe6WN9qzK5bA6z0-BoQdNnsddesJ-D_U4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
