@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:my_virtual_assistant/Screens/User_Information_detail.dart';
+import 'package:my_virtual_assistant/authentication/User_Information_detail.dart';
 import 'package:my_virtual_assistant/Screens/home_screen.dart';
-import 'package:my_virtual_assistant/Screens/registration_screen.dart';
+import 'package:my_virtual_assistant/authentication/landing_screen.dart';
+import 'package:my_virtual_assistant/authentication/registration_screen.dart';
 import 'package:my_virtual_assistant/provider/authentication_provider.dart';
+import 'package:my_virtual_assistant/provider/chat_provider.dart';
 import 'package:my_virtual_assistant/provider/my_theme_provider.dart';
 import 'package:my_virtual_assistant/theme/my_theme.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +20,8 @@ void main() async{
   );
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_)=>MyThemeProvider()),
-    ChangeNotifierProvider(create: (_)=>AuthenticationProvider())
+    ChangeNotifierProvider(create: (_)=>AuthenticationProvider()),
+    ChangeNotifierProvider(create: (_)=>chatProvider())
   ],
   child: const MyApp()));
 }
@@ -37,8 +40,9 @@ class MyApp extends StatelessWidget {
           theme: MyTheme.themeData(isDarkTheme: value.themeType , context: context),
           debugShowCheckedModeBanner: false,
 
-          initialRoute: Constants.registrationScreen,
+          initialRoute: Constants.landingScreen,
         routes: {
+          Constants.landingScreen : (context)=>LandingScreen(),
             Constants.registrationScreen : (context)=>RegistrationScreen(),
           Constants.homeScreen : (context)=>HomeScreen(),
           Constants.userInformationScreen : (context)=>UserInformation(),

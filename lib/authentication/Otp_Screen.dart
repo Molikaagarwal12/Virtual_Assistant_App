@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_virtual_assistant/Screens/User_Information_detail.dart';
+import 'package:my_virtual_assistant/authentication/User_Information_detail.dart';
 import 'package:my_virtual_assistant/provider/authentication_provider.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
+
+import '../Screens/home_screen.dart';
 
 class OTPSCREEN extends StatefulWidget {
   final String VerificationId;
@@ -89,14 +91,46 @@ class _OTPSCREENState extends State<OTPSCREEN> {
       ),
     );
   }
-    void verifyOTP({required String smsCode}){
-      final authRepo=Provider.of<AuthenticationProvider>(context,listen: false);
-      authRepo.verifyOtp(
-          context:context , verificationId: widget.VerificationId,
-          smsCode: smsCode, onSuccess: (){
-            Navigator.push(context, MaterialPageRoute
-              (builder: (context)=>UserInformation()));
-      });
+  void verifyOTP({required String smsCode}){
+    final authProvider = Provider.of<AuthenticationProvider>(context, listen: false);
+    authProvider.verifyOtp(
+      context: context,
+      verificationId: widget.VerificationId,
+      smsCode: smsCode,
+      onSuccess: () async{
+        // 1. check database if the current user exist
+        bool userExits = await authProvider.checkUserExist();
+        if(userExits){
+          // 2. get user data from database
+          await authProvider.getUserDataFromFireStore();
 
+          // 3. save user data to shared preferences
+          await authProvider.saveUserDataToSharedPref();
+
+          // 4. save this user as signed in
+          await authProvider.setSignedIn();
+
+          // 5. navigate to Home
+          navigate(isSingedIn: true);
+
+        } else {
+          // navigate to user information screen
+          navigate(isSingedIn: false);
+        }
+
+      },
+    );
+
+  }
+
+
+  void navigate({required bool isSingedIn}) {
+    if(isSingedIn){
+      Navigator.pushAndRemoveUntil(
+          context, MaterialPageRoute(
+          builder: (context) => const HomeScreen()), (route) => false);
+    } else {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const UserInformation()));
     }
+  }
 }

@@ -20,11 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
     final themeStatus=Provider.of<MyThemeProvider>(context);
     Color color=themeStatus.themeType?Colors.white:Colors.black;
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Nexus-VirtualAssistant",style: TextStyle(color:
-        color),),
-
-      ),
       body: tabs[Sindex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

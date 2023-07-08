@@ -1,6 +1,6 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:my_virtual_assistant/Screens/Otp_Screen.dart';
+import 'package:my_virtual_assistant/authentication/Otp_Screen.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
@@ -44,17 +44,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           child: Center(
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 25,horizontal: 35),
-              child: Column(
-                children: [
 
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
                   Image(image: AssetImage("Assets/images/3 - logo.png")),
-                    SizedBox(height: 50,),
-            Text("Register",style: TextStyle(fontSize: 28,fontWeight: FontWeight.bold)),
+                    SizedBox(height: 35,),
+                  // Image(image: AssetImage("Assets/images/pexels-tara-winstead-8386422.jpg")),
+                  // SizedBox(height: 50,),
+            Text("   Registration",style: TextStyle(fontSize: 38,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                   SizedBox(height: 18,),
                   Text("Add your phoneNumber. I will send you a verification code.",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 30,),
                   TextFormField(controller: phoneController,
                   // maxLength: 10,
                   textInputAction: TextInputAction.done,
@@ -70,11 +73,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       hintStyle: TextStyle(fontSize: 18),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)
-                            ,borderSide: BorderSide(color: Colors.orangeAccent)
+                            ,borderSide: BorderSide(color: Colors.deepPurpleAccent)
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.orangeAccent)
+                        borderSide: BorderSide(color: Colors.deepPurpleAccent)
                       ),
                      prefixIcon: Container(
                        padding: EdgeInsets.fromLTRB(8, 12, 8, 12),
@@ -107,7 +110,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                        )   :null,
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 22,),
                     SizedBox(
                       width: double.infinity,
                       height: 50,
@@ -119,7 +122,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         successColor:Colors.green,
                         errorColor: Colors.red,
                         color: Colors.deepPurple,
-                        child: Text('Login',style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold,
+                        child: Text('Sign Up',style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold,
                         letterSpacing: 1.5),),
                       ),
                     )
