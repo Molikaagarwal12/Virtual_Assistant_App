@@ -5,6 +5,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:my_virtual_assistant/constants/constants.dart';
+import 'package:my_virtual_assistant/services/api_service.dart';
 import 'package:uuid/uuid.dart';
 
 class chatProvider extends ChangeNotifier{
@@ -33,6 +34,7 @@ class chatProvider extends ChangeNotifier{
       notifyListeners();
 
       await sendMessageToFireStore(uid: uid, message: message);
+      await sendMessageToChatGpt(uid: uid, message: message, isText: isText, modelId: modelId);
       _isTyping=false;
       onSuccess();
     }catch(error){
@@ -59,4 +61,15 @@ class chatProvider extends ChangeNotifier{
       Constants.MessageTime:FieldValue.serverTimestamp(),
       Constants.isText:isText
     });
-  }}
+  }
+Future<void> sendMessageToChatGpt({
+  required String uid,
+  required String message,
+  required bool isText,
+  required String modelId,
+})async{
+    String chatId=Uuid().v4();
+    ApiService.SendMessageToChatGpt(message: message, modelId: modelId, isText: isText);
+}
+
+}

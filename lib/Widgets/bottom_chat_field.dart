@@ -28,6 +28,8 @@ class _BottomChatFieldState extends State<BottomChatField> {
      textEditingController.dispose();
     super.dispose();
   }
+
+  String chatGptModel='gpt-3.5-turbo';
   @override
   Widget build(BuildContext context) {
     final isDarkTheme = Provider.of<MyThemeProvider>(context).themeType;
@@ -57,7 +59,7 @@ class _BottomChatFieldState extends State<BottomChatField> {
             context.read<chatProvider>().sendMessage
               (uid: context.read<AuthenticationProvider>().userModel.uid,
                 message: textEditingController.text,
-                modelId: '',
+                modelId: chatGptModel,
                 onSuccess: (){
                 print('success');
                 },
