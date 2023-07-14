@@ -42,10 +42,10 @@ class MyApp extends StatelessWidget {
 
           initialRoute: Constants.landingScreen,
         routes: {
-          Constants.landingScreen : (context)=>LandingScreen(),
-            Constants.registrationScreen : (context)=>RegistrationScreen(),
-          Constants.homeScreen : (context)=>HomeScreen(),
-          Constants.userInformationScreen : (context)=>UserInformation(),
+          Constants.landingScreen : (context)=>const LandingScreen(),
+            Constants.registrationScreen : (context)=>const RegistrationScreen(),
+          Constants.homeScreen : (context)=>const HomeScreen(),
+          Constants.userInformationScreen : (context)=>const UserInformation(),
         },
         );
       },

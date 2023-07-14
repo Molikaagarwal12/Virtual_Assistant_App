@@ -1,4 +1,6 @@
 
+
+
 import 'dart:ui';
 
 class Constants{
@@ -28,7 +30,12 @@ class Constants{
   static const MessageTime= 'MessageTime';
   static const isText= 'isText';
 
+static const images= 'images';
+static const userImageKey = 'userImageKey';
+  static const generateImageKeys = 'generateImageKeys';
+
   static const aboutMe = 'aboutMe';
-  static const Color chatGPTDarkCardColor=Color(0xFF44654);
-  static const Color chatGPTDarkScaffoldColor=Color(0xFF44343541);
+  static const Color chatGPTDarkCardColor=Color(0x0ff44654);
+  
+  static const Color chatGPTDarkScaffoldColor=Color(0xff44343541);
 }

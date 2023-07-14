@@ -1,13 +1,15 @@
 
-import 'dart:math';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/my_theme_provider.dart';
 
 void showSnackBar({required BuildContext context,required String content}){
   ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content:Text(content,textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 10,color: Colors.white),))
+        style: const TextStyle(fontSize: 10,color: Colors.white),))
   );
 }
 
@@ -34,3 +36,20 @@ Future<File?> pickImage({required BuildContext context,required bool fromCamera}
   }
   return fileImage;
 }
+
+Widget buildButton({required BuildContext context, required String value, required String text,}){
+  final themeStatus = Provider.of<MyThemeProvider>(context);
+  Color color = themeStatus.themeType ? Colors.white : Colors.black;
+  return MaterialButton(
+      onPressed: (){},
+    padding: const EdgeInsets.symmetric(vertical: 4),
+    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(value, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: color ),),
+        const SizedBox(height: 2,),
+        Text(text, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18,color: color ),),
+      ],
+    ),
+  );}

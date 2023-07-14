@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_virtual_assistant/authentication/User_Information_detail.dart';
 import 'package:my_virtual_assistant/authentication/registration_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +15,7 @@ class LandingScreen extends StatefulWidget {
 class _LandingScreenState extends State<LandingScreen> {
   @override
   void initState() {
-    // TODO: implement initState
+    
     checkAuthentication();
     super.initState();
   }
@@ -34,7 +32,7 @@ class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: CircularProgressIndicator(
           color: Colors.orangeAccent,

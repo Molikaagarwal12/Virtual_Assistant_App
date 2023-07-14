@@ -1,3 +1,5 @@
+
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -26,13 +28,13 @@ class _UserInformationState extends State<UserInformation> {
   void dispose() {
     phoneController.dispose();
     nameController.dispose();
-    // TODO: implement dispose
+    
     super.dispose();
   }
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     final authProvider = Provider.of<AuthenticationProvider>(
         context, listen: false);
@@ -64,7 +66,7 @@ class _UserInformationState extends State<UserInformation> {
   void showImagePickerDialog() {
     showDialog(context: context, builder: (context) {
       return AlertDialog(
-        title: Text("Please choose an option"),
+        title: const Text("Please choose an option"),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -72,10 +74,10 @@ class _UserInformationState extends State<UserInformation> {
               onTap: () {
                 selectImage(true);
               },
-              child: Row(
+              child: const Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(4.0),
+                    padding: EdgeInsets.all(4.0),
                     child: Icon(Icons.camera, color: Colors.purple,),
                   ),
                   Text("Camera")
@@ -86,10 +88,10 @@ class _UserInformationState extends State<UserInformation> {
               onTap: () {
                 selectImage(false);
               },
-              child: Row(
+              child: const Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(4.0),
+                    padding: EdgeInsets.all(4.0),
                     child: Icon(Icons.browse_gallery, color: Colors.purple,),
                   ),
                   Text("Gallery")
@@ -109,14 +111,14 @@ class _UserInformationState extends State<UserInformation> {
         child: SingleChildScrollView(
           child: Center(
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 25, horizontal: 35),
+              padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 35),
               child: Column(
                 children: [
                   Center(
                     child: finalImageFile == null
                         ? Stack(
                       children: [
-                        CircleAvatar(
+                        const CircleAvatar(
                           radius: 80,
                           backgroundImage:
                           AssetImage('Assets/images/user_icon.png'),
@@ -130,12 +132,12 @@ class _UserInformationState extends State<UserInformation> {
                               border: Border.all(
                                   width: 2, color: Colors.white),
                               borderRadius:
-                              BorderRadius.all(Radius.circular(35)),
+                              const BorderRadius.all(Radius.circular(35)),
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: IconButton(
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.camera_alt,
                                   color: Colors.white,
                                 ),
@@ -165,12 +167,12 @@ class _UserInformationState extends State<UserInformation> {
                               border: Border.all(
                                   width: 2, color: Colors.white),
                               borderRadius:
-                              BorderRadius.all(Radius.circular(35)),
+                              const BorderRadius.all(Radius.circular(35)),
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: IconButton(
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.camera_alt,
                                   color: Colors.white,
                                 ),
@@ -183,15 +185,15 @@ class _UserInformationState extends State<UserInformation> {
                         )
                       ],
                     )
-                        : CircularProgressIndicator(),
+                        : const CircularProgressIndicator(),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Container(
                     width: MediaQuery
                         .of(context)
                         .size
                         .width,
-                    margin: EdgeInsets.only(top: 20),
+                    margin: const EdgeInsets.only(top: 20),
                     child: Column(
                       children: [
                         myTextFormField(
@@ -203,7 +205,7 @@ class _UserInformationState extends State<UserInformation> {
                           textEditingController: nameController,
                           enabled: true,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         myTextFormField(
@@ -218,7 +220,7 @@ class _UserInformationState extends State<UserInformation> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   SizedBox(
                     width: double.infinity,
                     height: 50,
@@ -231,7 +233,7 @@ class _UserInformationState extends State<UserInformation> {
                       successColor: Colors.green,
                       errorColor: Colors.red,
                       color: Colors.deepPurple,
-                      child: Text(
+                      child: const Text(
                         'Continue',
                         style: TextStyle(
                           fontSize: 24,
@@ -268,16 +270,16 @@ class _UserInformationState extends State<UserInformation> {
       decoration: InputDecoration(
           counterText: '',
           prefixIcon: Container(
-            margin: EdgeInsets.all(8),
+            margin: const EdgeInsets.all(8),
             child: Icon(icon, size: 20, color: Colors.deepPurple,),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(color: Colors.transparent),
+            borderSide: const BorderSide(color: Colors.transparent),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
-            borderSide: BorderSide(color: Colors.transparent),
+            borderSide: const BorderSide(color: Colors.transparent),
           ),
           hintText: hintText,
           alignLabelWithHint: true,
@@ -323,7 +325,7 @@ void saveUserDataToFirestore() async{
   void navigateToHomeScreen() {
     Navigator.pushAndRemoveUntil(
         context, MaterialPageRoute(
-        builder: (context)=>HomeScreen()),
+        builder: (context)=>const HomeScreen()),
             (route)=>false );
   }
 }

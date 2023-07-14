@@ -1,7 +1,10 @@
 
+// ignore_for_file: prefer_const_constructors, file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:my_virtual_assistant/Widgets/chat_list.dart';
+import 'package:my_virtual_assistant/provider/chat_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../Widgets/bottom_chat_field.dart';
@@ -22,13 +25,36 @@ class _AiChatScreenState extends State<AiChatScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text("Nexus-Virtual Assistant",style: TextStyle(color:color),),
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text("Nexus-Virtual Assistant",style: TextStyle(color:color),),
+        ),
+        actions: [
+          IconButton(onPressed: (){
+            context.read<chatProvider>().setIsText(textMode: true);
+          }, icon: Icon(Icons.chat, 
+          color: context.read<chatProvider>().isText?color:Colors.grey,)),
+
+           IconButton(onPressed: (){
+            context.read<chatProvider>().setIsText(textMode: false);
+          }, icon: Icon(Icons.image, 
+          color: !context.read<chatProvider>().isText?color:Colors.grey,))
+        ],
       ),
       body:SafeArea(
         child: Column(
           children: [
-            Expanded(child:ChatList() ),
+            const Expanded(child:ChatList() ),
+
+            if(context.watch<chatProvider>().isTyping) ...[
+              SpinKitDoubleBounce(
+                color:color,
+                size: 18,
+              )
+            ],
+
             SizedBox(height: 10,),
+
             BottomChatField()
 
           ],

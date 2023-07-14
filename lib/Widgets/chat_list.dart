@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:my_virtual_assistant/Widgets/chat_widget.dart';
 import 'package:my_virtual_assistant/constants/constants.dart';
 import 'package:my_virtual_assistant/provider/authentication_provider.dart';
 import 'package:my_virtual_assistant/provider/chat_provider.dart';
@@ -13,57 +15,71 @@ class ChatList extends StatefulWidget {
 }
 
 class _ChatListState extends State<ChatList> {
-
+  final ScrollController messageScrollController=ScrollController();
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    messageScrollController.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
-    final uid=context.read<AuthenticationProvider>().userModel.uid;
+    final uid = context.read<AuthenticationProvider>().userModel.uid;
     return StreamBuilder<QuerySnapshot>(
-      stream: context.read<chatProvider>().getChatScreen(uid:uid),
+      stream: context.read<chatProvider>().getChatStream(uid: uid),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Text('Something went wrong');
+          return const Center(
+            child: Text('Something went wrong'),
+          );
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator(color: Colors.orangeAccent,),
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.orangeAccent,
+            ),
           );
         }
-        if(snapshot.data!.docs.isEmpty){
-          return Center(
-            child: Text(
-                'Chat is Empty',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1.5
-            ),),
 
+        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          return const Center(
+            child: Text(
+              'Chat is empty!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.5,
+              ),
+            ),
           );
         }
-        final messageSnapShot=snapshot.data!.docs;
+
+       SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+        messageScrollController.jumpTo(messageScrollController.position.maxScrollExtent);
+       });
+        final messageSnapShot = snapshot.data!.docs;
+        print(messageSnapShot);
+
         return ListView.builder(
           itemCount: messageSnapShot.length,
-            itemBuilder: (context,index){
-          return ListTile(
-            title: Text(messageSnapShot[index][Constants.message]),
-            );
+          controller: messageScrollController,
+          itemBuilder: (context, index) {
 
-        });
-
-
-        // return ListView(
-        //   children: snapshot.data!.docs.map((DocumentSnapshot document) {
-        //     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-        //     return ListTile(
-        //       title: Text(data['name']),
-        //       subtitle: Text(data['phone']),
-        //     );
-        //   }).toList(),
-        // );
+             return ChatWidget(
+              message: messageSnapShot[index][Constants.message], 
+              senderId: messageSnapShot[index][Constants.senderId], 
+              isText:  messageSnapShot[index][Constants.isText],);
+            
+            // ListTile(
+            //   title: Text(messageContent),
+            // );
+          },
+        );
       },
     );
   }
 }
+
